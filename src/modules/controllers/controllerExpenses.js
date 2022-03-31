@@ -21,3 +21,14 @@ module.exports.createNewExpense = async (req, res) => {
     return res.status(422).send({ error: error, messaage: 'Error! Params not correct!' });
   };
 };
+
+module.exports.deleteExistsExpens = async (req, res) => {
+  try {
+    const expenseId = req.query.id;
+    if (!expenseId) return res.status(422).send('Error! Param "id" not found!' );
+    const result = await ExpensesSchema.deleteOne({ _id: expenseId });
+    return result.deletedCount ? res.send('Expense delete!') : res.status(404).send('Expense not found!');
+  } catch (error) {
+    return res.status(422).send({ error: error, messaage: 'Error! Params not correct!' });
+  };
+};
