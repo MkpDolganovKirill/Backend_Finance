@@ -36,7 +36,7 @@ module.exports.deleteExistsExpens = async (req, res) => {
 module.exports.editExpense = async (req, res) => {
   try {
     const body = req.body;
-    if (!(body.hasOwnProperty('id') && body.hasOwnProperty('company') && body.hasOwnProperty('date') && body.hasOwnProperty('money')))
+    if (!(body.hasOwnProperty('id') && body.hasOwnProperty('company') && body.hasOwnProperty('money')))
       return res.status(422).send('Error! Params not found!');
     const result = await ExpensesSchema.updateOne({ _id: body.id }, body);
     console.log(result);
