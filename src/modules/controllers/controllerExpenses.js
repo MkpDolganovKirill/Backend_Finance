@@ -32,3 +32,15 @@ module.exports.deleteExistsExpens = async (req, res) => {
     return res.status(422).send({ error: error, messaage: 'Error! Params not correct!' });
   };
 };
+
+module.exports.editExpense = async (req, res) => {
+  try {
+    const body = req.body;
+    if (!(body.hasOwnProperty('id') && body.hasOwnProperty('company') && body.hasOwnProperty('money')))
+      return res.status(422).send('Error! Params not found!');
+    const result = await ExpensesSchema.updateOne({ _id: body.id }, body);
+    return result.matchedCount ? res.send('Expense update!') : res.status(404).send('Expense not found!');
+  } catch (error) {
+    return res.status(422).send({ error: error, messaage: 'Error! Params not correct!' });
+  };
+};
