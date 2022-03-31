@@ -5,6 +5,6 @@ module.exports.getAllExpenses = async (req, res) => {
     const result = await ExpensesSchema.find();
     res.send({data: result});
   } catch (error) {
-    return res.status(422).send({error: error, messaage: 'Error!'});
+    return res.status(500).send({error: error, messaage: 'Error!'});
   };
 };
