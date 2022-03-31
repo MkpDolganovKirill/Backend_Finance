@@ -39,7 +39,6 @@ module.exports.editExpense = async (req, res) => {
     if (!(body.hasOwnProperty('id') && body.hasOwnProperty('company') && body.hasOwnProperty('money')))
       return res.status(422).send('Error! Params not found!');
     const result = await ExpensesSchema.updateOne({ _id: body.id }, body);
-    console.log(result);
     return result.matchedCount ? res.send('Expense update!') : res.status(404).send('Expense not found!');
   } catch (error) {
     return res.status(422).send({ error: error, messaage: 'Error! Params not correct!' });
