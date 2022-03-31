@@ -25,10 +25,10 @@ module.exports.createNewExpense = async (req, res) => {
 module.exports.deleteExistsExpens = async (req, res) => {
   try {
     const expenseId = req.query.id;
-    if (!expenseId) return res.status(422).send('Error! Params value not found!' );
+    if (!expenseId) return res.status(422).send('Error! Param "id" not found!' );
     const result = await ExpensesSchema.deleteOne({ _id: expenseId });
     return result.deletedCount > 0 ? res.send('Expense delete!') : res.send('Expense not found!');
   } catch (error) {
     return res.status(422).send({ error: error, messaage: 'Error! Params not correct!' });
-  }
-}
+  };
+};
