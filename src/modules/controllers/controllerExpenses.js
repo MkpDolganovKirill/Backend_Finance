@@ -13,7 +13,7 @@ module.exports.createNewExpense = async (req, res) => {
   try {
     const body = req.body;
     if (!(body.hasOwnProperty('company') && body.hasOwnProperty('date') && body.hasOwnProperty('money'))) 
-    return res.status(422).send('Error! Params not found!');
+      return res.status(422).send('Error! Params not found!');
     const expense = new ExpensesSchema(body);
     await expense.save();
     return res.send({expense: expense, message: 'Expense saved!'});
