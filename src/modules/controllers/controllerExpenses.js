@@ -25,7 +25,7 @@ module.exports.createNewExpense = async (req, res) => {
 
 module.exports.deleteExistsExpens = async (req, res) => {
   try {
-    const expenseId = req.query.id;
+    const expenseId = req.query._id;
     if (!expenseId) return res.status(422).send('Error! Param "id" not found!' );
     const result = await ExpensesSchema.deleteOne({ _id: expenseId });
     return result.deletedCount ? res.send('Expense delete!') : res.status(404).send('Expense not found!');
@@ -37,9 +37,9 @@ module.exports.deleteExistsExpens = async (req, res) => {
 module.exports.editExpense = async (req, res) => {
   try {
     const body = req.body;
-    if (!(body.hasOwnProperty('id') && (body.hasOwnProperty('company') || body.hasOwnProperty('money') || body.hasOwnProperty('date'))))
+    if (!(body.hasOwnProperty('_id') && (body.hasOwnProperty('company') || body.hasOwnProperty('money') || body.hasOwnProperty('date'))))
       return res.status(422).send('Error! Params not found!');
-    const result = await ExpensesSchema.updateOne({ _id: body.id }, body);
+    const result = await ExpensesSchema.updateOne({ _id: body._id }, body);
     return result.matchedCount ? res.send('Expense update!') : res.status(404).send('Expense not found!');
   } catch (error) {
     return res.status(422).send({ error: error, messaage: 'Error! Params not correct!' });
